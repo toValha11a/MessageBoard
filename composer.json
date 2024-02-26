@@ -1,0 +1,14 @@
+{
+    "name": "poc/practice",
+    "autoload": {
+        "psr-4": {
+            "Poc\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Polkan"
+        }
+    ],
+    "require": {}
+}
