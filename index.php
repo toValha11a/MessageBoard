@@ -18,7 +18,7 @@ $mysqli = new mysqli("localhost", "root", "", "practicebase" );
        <input class="saveButton" type="submit" value='Сохранить'>
    </div>
 </form>
-</div>2
+</div>
 
 <pre>
 <?php
