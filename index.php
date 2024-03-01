@@ -1,8 +1,8 @@
 <?php
 require 'vendor/autoload.php';
 
-use Poc\Classes\Circle;
-$mysqli = new mysqli("localhost", "root", "", "practicebase" );
+use Poc\Classes\Helper\ORM;
+$orm = new ORM();
 ?>
 
 <html>
@@ -22,10 +22,14 @@ $mysqli = new mysqli("localhost", "root", "", "practicebase" );
 
 <pre>
 <?php
+
 ['username' => $name, 'message' => $text] = $_POST;
-$sql = "INSERT INTO messages (NAME, MESSAGES) VALUES ('$name', '$text')";
-$result = $mysqli->query($sql);
-print_r($result);
+
+$result = $orm->setTable('messages')
+    ->setFields(['NAME', 'MESSAGES'])
+    ->setValues([$name, $text])
+    ->addQuery()
+    ->exec();
 ?>
 </pre>
 </html>

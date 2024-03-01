@@ -1,12 +1,13 @@
 <?php
 
 require 'vendor/autoload.php';
+use Poc\Classes\Users\User;
 
-$mysqli = new mysqli("localhost", "root", "", "practicebase");
+$user = new User();
 ?>
 <html>
 <div class="inputFields">
-	<form action="index.php" method='POST'>
+	<form action="" method='POST'>
 		<div class="nameInput">
 			<input class="nameEntryField" placeholder="Name" type='text' id='username' name='username'><br>
 		</div>
@@ -21,10 +22,7 @@ $mysqli = new mysqli("localhost", "root", "", "practicebase");
 	</form>
 </div>
 <?
-['username' => $name, 'login' => $login, 'password' => $password] = $_POST;
-$sql = "INSERT INTO users (NAME, LOGIN, PASSWORD) VALUES ('$name', '$login', '$password')";
-$result = $mysqli->query($sql);
-print_r($_POST);
+$user->reg($_POST);
 ?>
 
 

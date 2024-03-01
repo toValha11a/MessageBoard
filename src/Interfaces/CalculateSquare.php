@@ -4,5 +4,5 @@ namespace Poc\Interfaces;
 
 interface CalculateSquare
 {
-	public function calculateSquare(): float;
+	public function calculateSquare(): float
 }
