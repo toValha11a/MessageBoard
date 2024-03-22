@@ -1,11 +1,12 @@
 <?php
 
-require 'vendor/autoload.php';
-use Poc\Classes\Users\User;
+require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
-$user = new User();
+use Main\Classes\Api\Users\UserApi;
+
+$user = new UserApi();
 ?>
-<html>
+<? include_once $_SERVER['DOCUMENT_ROOT'] . '/components/header.php';?>
 <div class="inputFields">
 	<form action="" method='POST'>
 		<div class="nameInput">
@@ -14,15 +15,18 @@ $user = new User();
 
 		<input class="loginInput" placeholder="Login" id='login' name='login'><br>
 
-        <input class="passwordInput" placeholder="Password" id='password' name='password'><br>
+		<input class="passwordInput" placeholder="Password" id='password' name='password'><br>
 
 		<div class="saveButtonField">
 			<input class="saveButton" type="submit" value='Сохранить'>
 		</div>
 	</form>
 </div>
+
+
+
 <?
 $user->reg($_POST);
 ?>
-
+<? include_once $_SERVER['DOCUMENT_ROOT'] . '/components/footer.php';?>
 

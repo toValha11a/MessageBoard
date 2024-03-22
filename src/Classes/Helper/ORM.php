@@ -1,6 +1,6 @@
 <?php
 
-namespace Poc\Classes\Helper;
+namespace Main\Classes\Helper;
 
 class ORM
 {
@@ -17,6 +17,8 @@ class ORM
 	private $values;
 
 	private $sql;
+
+	private $filter = '';
 
 	/**
 	 *
@@ -55,19 +57,38 @@ class ORM
 	 */
 	public function setValues(array $values)
 	{
-		$valueString = '';
+		$valueArray = [];
 		foreach ($values as $value) {
-			$valueString .= "'$value', ";
+			$valueArray[] = "'$value'";
 		}
-		$valueString = substr($valueString,  0, -2);
+		$valueString = implode(", ", $valueArray);
 		$this->values = $valueString;
 		return $this;
 	}
+
+	public function setFilter(array $filterParams, string $logic = 'AND')
+	{
+		$filterArray = [];
+		foreach ($filterParams as $field => $value) {
+			$filterArray[] = "$field = '$value'";
+		}
+		$filterString = implode(" $logic ", $filterArray);
+		$this->filter = 'WHERE ' . $filterString;
+		return $this;
+
+	}
+
 	/**
 	 */
 	public function addQuery()
 	{
 		$this->sql = "INSERT INTO $this->table ($this->fields) VALUES ($this->values)";
+		return $this;
+	}
+
+	public function getQuery()
+	{
+		$this->sql = "SELECT $this->fields FROM $this->table $this->filter";
 		return $this;
 	}
 
@@ -82,17 +103,19 @@ class ORM
 
 	public function getExec(): array
 	{
-		$this->sql = "SELECT LOGIN,PASSWORD FROM users WHERE LOGIN = :LOGIN ";
-		if ($result = $this->mysqli->query($this->sql))
-		{
-			while ($row = $result->fetch_array(MYSQLI_ASSOC))
-			{
-				$userLogin = $row['LOGIN'];
-				$userPassword = $row['PASSWORD'];
-			}
+		$result = $this->mysqli->query($this->sql);
+
+		if ($result == false) {
+			return [];
 		}
-		$userData = ['userlogin'=> $userLogin, 'userpassword'=> $userPassword];
-		return $userData;
+
+		$fetchResult = [];
+		while ($row = $result->fetch_array(MYSQLI_ASSOC))
+		{
+			$fetchResult[] = $row;
+		}
+
+		return $fetchResult;
 	}
 
 }

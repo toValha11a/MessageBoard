@@ -1,8 +1,8 @@
 {
-    "name": "poc/practice",
+    "name": "practice/message_board",
     "autoload": {
         "psr-4": {
-            "Poc\\": "src/"
+            "Main\\": "src/"
         }
     },
     "authors": [
@@ -10,5 +10,7 @@
             "name": "Polkan"
         }
     ],
-    "require": {}
+    "require": {
+        "ext-http": "*"
+    }
 }
