@@ -98,5 +98,25 @@ class UserApi
 			->getExec();
 		return $usersPosts;
 	}
+	public function userSelfPosts(): array
+	{
+		$orm = new ORM();
+		$usersPosts = $orm ->setFields(['MESSAGES', 'HEADING'])
+			->setTable('messages')
+			->setFilter([
+				'USERID' => $_SESSION['user_id']
+			])
+			->getQuery()
+			->getExec();
+		return $usersPosts;
+	}
+	public function inAccountMessage()
+	{
+		if($this->checkAuth() == true){
+			echo "Вы в аккаунте: " . $_SESSION["user_name"];
+		}else{
+			echo "Вы не авторизовались";
+		}
 
+	}
 }

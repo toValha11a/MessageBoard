@@ -1,3 +1,11 @@
+<?php
+session_start();
+use Main\Classes\Api\Users\UserApi;
+$user = new UserApi();
+?>
+<div class="inAccountMessage">
+    <p><?$user->inAccountMessage();?></p>
+</div>
 <div>
     <ul>
         <li><a href="/profile">Личный кабинет</a></li>
