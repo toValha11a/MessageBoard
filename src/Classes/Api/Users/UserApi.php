@@ -12,10 +12,9 @@ class UserApi
 	 */
 	public function reg($params)
 	{
-		$orm = new ORM();
 		['username' => $name, 'login' => $login, 'password' => $password] = $params;
 		$passwordHash = password_hash((string)$password, PASSWORD_DEFAULT);
-		$orm->setTable('users')
+		ORM::getInstance()->setTable('users')
 			->setFields(['NAME', 'LOGIN', 'PASSWORD'])
 			->setValues([$name, $login, $passwordHash])
 			->addQuery()
@@ -29,8 +28,7 @@ class UserApi
 	public function logIn($params): array
 	{
 		['login' => $login, 'password' => $password] = $params;
-		$orm = new ORM();
-		$userData = $orm->setFields(['LOGIN', 'PASSWORD', 'ID', 'NAME'])
+		$userData = ORM::getInstance()->setFields(['LOGIN', 'PASSWORD', 'ID', 'NAME'])
 			->setTable('users')
 			->setFilter([
 				'LOGIN' => $login
@@ -72,8 +70,7 @@ class UserApi
 		$userId = $_SESSION["user_id"];
 		$userName = $_SESSION["user_name"];
 		['message' => $text, 'heading' => $heading] = $params;
-		$orm = new ORM();
-		$orm->setTable('messages')
+		ORM::getInstance()->setTable('messages')
 			->setFields(['USERID', 'MESSAGES', 'HEADING', 'USERNAME'])
 			->setValues([$userId, $text, $heading, $userName])
 			->addQuery()
@@ -91,8 +88,7 @@ class UserApi
 	public function mainPagePosts(): array
 	{
 
-		$orm = new ORM();
-		$usersPosts = $orm ->setFields(['MESSAGES', 'HEADING', 'USERNAME'])
+		$usersPosts = ORM::getInstance()->setFields(['MESSAGES', 'HEADING', 'USERNAME'])
 			->setTable('messages')
 			->getQuery()
 			->getExec();
@@ -100,8 +96,7 @@ class UserApi
 	}
 	public function userSelfPosts(): array
 	{
-		$orm = new ORM();
-		$usersPosts = $orm ->setFields(['MESSAGES', 'HEADING'])
+		$usersPosts = ORM::getInstance()->setFields(['MESSAGES', 'HEADING'])
 			->setTable('messages')
 			->setFilter([
 				'USERID' => $_SESSION['user_id']

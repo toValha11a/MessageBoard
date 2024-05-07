@@ -38,7 +38,4 @@ if (count($_POST) > 0) {
 			</div>
 		</form>
 	</div>
-
-
-
 <? include_once $_SERVER['DOCUMENT_ROOT'] . '/components/footer.php';?>

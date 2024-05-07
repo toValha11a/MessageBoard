@@ -20,6 +20,8 @@ class ORM
 
 	private $filter = '';
 
+	private static $instance;
+
 	/**
 	 *
 	 */
@@ -116,6 +118,14 @@ class ORM
 		}
 
 		return $fetchResult;
+	}
+	public static function getInstance(): self
+	{
+		if (self::$instance === null) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
 	}
 
 }
